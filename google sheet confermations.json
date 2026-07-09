@@ -1,0 +1,295 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        -48
+      ],
+      "id": "8d340746-4981-4af2-8620-9a7056de2288",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1OWultKY-5JKzJ_yOm_8WBBkDJ_OAi1jYn91a_ZkhViw",
+          "mode": "list",
+          "cachedResultName": "slmasasas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OWultKY-5JKzJ_yOm_8WBBkDJ_OAi1jYn91a_ZkhViw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OWultKY-5JKzJ_yOm_8WBBkDJ_OAi1jYn91a_ZkhViw/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -160,
+        -48
+      ],
+      "id": "1ddc18a1-77d6-4790-9a63-c3193882fcef",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BjCtDOh7pr3Pbfar",
+          "name": "Google Sheets me office"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5352f136-0c1d-45f6-9508-b93bbe093200",
+              "leftValue": "={{ $json.confermed }}",
+              "rightValue": "ok",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        48,
+        -48
+      ],
+      "id": "dd2d4f23-91d2-4857-b166-a51540bb4f15",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('If').item.json.gmail }}",
+        "subject": "order confermation",
+        "emailType": "text",
+        "message": "Hi,  Thanks for your order! 😊  We've received it successfully and we'll contact you as soon as possible with the next steps.  Have a great day!",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        -128
+      ],
+      "id": "9f5dbf0c-8d23-48aa-9776-5eb3251e96bd",
+      "name": "Send a message",
+      "webhookId": "f90f53ff-cabc-45aa-924f-07ddef163bb5",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Tj8SHKtzdrVdMFiD",
+          "name": "Gmail ofic n8n"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "6892503934",
+        "text": "={{ $('Get row(s) in sheet').item.json.gmail }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        320,
+        48
+      ],
+      "id": "a0340bd7-dc76-45be-9d8b-7304cc90d69f",
+      "name": "Send a text message",
+      "webhookId": "1166b129-3adb-401f-a07c-c29d94525a7e",
+      "retryOnFail": false,
+      "credentials": {
+        "telegramApi": {
+          "id": "2xLwLQs0cmqVPsN8",
+          "name": "test sheet"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1OWultKY-5JKzJ_yOm_8WBBkDJ_OAi1jYn91a_ZkhViw",
+          "mode": "list",
+          "cachedResultName": "slmasasas",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OWultKY-5JKzJ_yOm_8WBBkDJ_OAi1jYn91a_ZkhViw/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1OWultKY-5JKzJ_yOm_8WBBkDJ_OAi1jYn91a_ZkhViw/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "row_number": "={{ $json.row_number }}",
+            "confermed": "=ok {{ $json.confermed }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "number",
+              "displayName": "number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "gmail",
+              "displayName": "gmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "password",
+              "displayName": "password",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "confermed",
+              "displayName": "confermed",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        320,
+        -128
+      ],
+      "id": "d33eea16-d37b-4772-b413-a1b458fe4eae",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "BjCtDOh7pr3Pbfar",
+          "name": "Google Sheets me office"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7a2113da8c9fbf220c7a2b80aecaf358170cc9ae5fdf76234bb770366d2379c3"
+  }
+}
