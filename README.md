@@ -23,3 +23,4 @@ Download the workflow JSON file and import it into n8n.
 
 ## 📄 License
 MIT
+<img width="1600" height="900" alt="img" src="https://github.com/user-attachments/assets/381aae51-6efd-4eed-9a70-b966238c6980" />
