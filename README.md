@@ -1,17 +1,25 @@
-# n8n-Google-Sheets-Email-Confirmation-Automation
-This n8n workflow automates the email confirmation process using Google Sheets and Gmail. It reads new rows from a Google Sheet, checks whether a confirmation email has already been sent, sends a confirmation email to unconfirmed recipients, and then updates the corresponding row by marking it as Confirmed to prevent duplicate emails.
+# n8n Google Sheets Email Confirmation Automation
 
-#Features
+## 📌 Overview
+This n8n workflow automates the email confirmation process using Google Sheets and Gmail.
 
-📄 Read customer data from Google Sheets.
-✅ Check if the confirmation email has already been sent.
-📧 Send personalized confirmation emails via Gmail.
-🔄 Update the Google Sheet after successful delivery.
-🚫 Prevent duplicate confirmation emails.
-⚡ Fully automated with n8n.
+## 🚀 Features
+- Read customer data from Google Sheets
+- Check whether a confirmation email has already been sent
+- Send personalized confirmation emails via Gmail
+- Update the Google Sheet after successful delivery
+- Prevent duplicate confirmation emails
 
-#Tech Stack
+## 🛠️ Requirements
+- n8n
+- Google Sheets API credentials
+- Gmail API credentials
 
-n8n
-Google Sheets API
-Gmail API
+## 📂 Workflow
+Google Sheets → IF → Gmail → Update Google Sheet
+
+## 📥 Import
+Download the workflow JSON file and import it into n8n.
+
+## 📄 License
+MIT
